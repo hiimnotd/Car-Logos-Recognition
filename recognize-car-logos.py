@@ -6,9 +6,8 @@ import os
 import time 
 
 
-inputPath='E:\Zuq\Studying\DIP\Car-Logos-Recognition/test_images/'
-modelPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition/model/'
-testImageName='test22.jpg'
+modelPath = '.../model/'
+testImageName='test1.jpg'
 modelName = 'carLogoModel.pkl'
 
 imageSize = (200,100)
