@@ -6,9 +6,9 @@ import os
 import time 
 from progress.bar import IncrementalBar
 
-inputPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition\test_images/'
-datasetPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition\car_logos/'
-modelPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition/model/'
+inputPath = '.../test_images/'
+datasetPath = '.../car_logos/'
+modelPath = '.../model/'
 modelName = 'carLogoModel.pkl'
 
 imageSize = (200,100)
