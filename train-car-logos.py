@@ -6,6 +6,8 @@ import os
 import time 
 from progress.bar import IncrementalBar
 
+#Count the number of logos on the progress bar
+
 inputPath = '.../test_images/'
 datasetPath = '.../car_logos/'
 modelPath = '.../model/'
@@ -22,9 +24,10 @@ def trainModel():
     print ('[INFO] Image Width: ' + str(imageSize[0]))
     print ('[INFO] Image Height: ' + str(imageSize[1]))
     
-    initialTime  = time.time()           #Initial Time 
+    initialTime  = time.time()          
 
-    # Count the number of different cars logo for the progress bar 
+    #Count the number of logos on the progress bar
+
     barCount = 0 
     for logos in os.listdir(datasetPath):
         if os.path.isdir(datasetPath+logos):
@@ -38,7 +41,8 @@ def trainModel():
             label = logos 
             for imageName in os.listdir(datasetPath+logos):
 
-                # Load image from the path
+                #Load the image: convert to gray, find edges and find contours
+                
                 imagePath = datasetPath+logos+ '/' + imageName
                 print(imagePath);
                 image=cv2.imread(imagePath)
@@ -49,19 +53,20 @@ def trainModel():
 
                 maxCnt=max(contours,key=cv2.contourArea)
 
-                # Extract the logo of the car and resize it to a canonical width  and height
+                #Find HOG of the logo
+                
                 x,y,w,h=cv2.boundingRect(maxCnt)
                 logo = gray[y:y + h, x:x + w]
                 logo = cv2.resize(logo, imageSize)
                 H = feature.hog(logo, orientations=9, pixels_per_cell=(10, 10),
                     cells_per_block=(2, 2), transform_sqrt=True)
 
-                # Update the data and labels
+                # Update HOG image and logo
                 data.append(H)
                 labels.append(label)
     bar.finish()             
 
-    # Train the nearest neighbors classifier
+    # Train model
     print ("[INFO] Training kNN classifier")
     model = KNeighborsClassifier(n_neighbors=1)
     model.fit(data, labels)

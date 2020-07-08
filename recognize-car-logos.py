@@ -5,12 +5,16 @@ import cv2
 import os
 import time 
 
+#Set path for test folder and model
 
+inputPath='.../test_images/'
 modelPath = '.../model/'
 testImageName='test1.jpg'
 modelName = 'carLogoModel.pkl'
 
 imageSize = (200,100)
+
+#Load trained model
 
 def LoadTrainModel():
     print ('[INFO] Loading ML Model')
@@ -23,9 +27,12 @@ def LoadTrainModel():
     return model
 
 
-def predictLogo():
+def regconizeLogo():
 	model = LoadTrainModel()
 	'''Now loading the test image and predicting the results'''
+
+	#Load test logo: convert to gray, resize to resolution 200x100 and find HOG of test logo
+	
 	image=cv2.imread(inputPath+testImageName)
 	gray=cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
 	gray=cv2.resize(gray, imageSize) 
@@ -35,16 +42,18 @@ def predictLogo():
 	pred = model.predict(H.reshape(1,-1))[0]
 	print ('[INFO] Pridicted Result is: '+str(pred))
 
-	# Visualize the HOG image
+        #Show HOG of test logo
+	
 	hogImage = exposure.rescale_intensity(hogImage, out_range=(0, 255))
 	hogImage = hogImage.astype("uint8")
 	cv2.imshow("HOG Image", hogImage)
 
-	# Draw the prediction on the test image and display it
+        #Show test logo with predicted label
+	
 	cv2.putText(image, pred.title(), (10, 35), cv2.FONT_HERSHEY_SIMPLEX, 1.0,
 	            (0, 0, 255), 2)
 	cv2.imshow("Test Image", image)
 
 
-predictLogo()
+regconizeLogo()
 cv2.waitKey(0)
