@@ -8,7 +8,7 @@ from progress.bar import IncrementalBar
 
 inputPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition\test_images/'
 datasetPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition\car_logos/'
-modelPath = 'E:\Zuq\Studying\DIP\Car-Logos-Detection/model/'
+modelPath = 'E:\Zuq\Studying\DIP\Car-Logos-Recognition/model/'
 modelName = 'carLogoModel.pkl'
 
 imageSize = (200,100)
